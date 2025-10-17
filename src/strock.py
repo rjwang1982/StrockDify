@@ -259,6 +259,19 @@ def get_stock_data(stock_code, market_type='A', start_date=None, end_date=None):
     if end_date is None:
         end_date = datetime.now().strftime('%Y%m%d')
 
+    # 禁用代理
+    import os
+    os.environ['NO_PROXY'] = '*'
+    os.environ['no_proxy'] = '*'
+    if 'HTTP_PROXY' in os.environ:
+        del os.environ['HTTP_PROXY']
+    if 'HTTPS_PROXY' in os.environ:
+        del os.environ['HTTPS_PROXY']
+    if 'http_proxy' in os.environ:
+        del os.environ['http_proxy']
+    if 'https_proxy' in os.environ:
+        del os.environ['https_proxy']
+
     try:
         # 验证股票代码格式
         if market_type == 'A':

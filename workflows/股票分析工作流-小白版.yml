@@ -345,15 +345,15 @@ workflow:
         prompt_template:
         - id: system-prompt
           role: system
-          text: "你是一位专业的股票投资分析师，擅长技术分析和风险评估。\n\n请基于以下数据为股票 {{#parse_response.stock_code#}}\
-            \ 提供专业的投资分析：\n\n## 技术指标概要\n{{#parse_response.technical_summary#}}\n\n\
-            ## 分析报告\n{{#parse_response.report#}}\n\n## 近期交易数据\n{{#parse_response.recent_data#}}\n\
+          text: "你是一位专业的股票投资分析师，擅长技术分析和风险评估。\n\n首先输出该股票的名称，以及最新的与其相关新闻，然后：\n\n请基于以下数据为股票\
+            \ {{#parse_response.stock_code#}} 提供专业的投资分析：\n\n## \n\n## 技术指标概要\n{{#parse_response.technical_summary#}}\n\
+            \n## 分析报告\n{{#parse_response.report#}}\n\n## 近期交易数据\n{{#parse_response.recent_data#}}\n\
             \n请提供以下分析：\n\n1. **趋势分析**\n   - 当前趋势方向\n   - 关键支撑位和压力位\n   - 均线系统分析\n\n\
             2. **技术指标解读**\n   - RSI指标含义\n   - MACD信号分析\n   - 成交量变化解读\n\n3. **风险评估**\n\
             \   - 波动率分析\n   - 潜在风险点\n   - 风险等级评定\n\n4. **投资建议**\n   - 短期操作策略（1-5天）\n\
             \   - 中期目标价位（1-3个月）\n   - 建议止损位\n   - 仓位管理建议\n\n5. **综合评分解读**\n   - 当前评分：{{#parse_response.score#}}分\n\
             \   - 系统建议：{{#parse_response.recommendation#}}\n   - 评分依据说明\n\n请用专业但易懂的语言，给出具体可操作的建议。"
-        selected: false
+        selected: true
         structured_output_enabled: false
         title: AI投资分析
         type: llm
@@ -368,7 +368,7 @@ workflow:
       positionAbsolute:
         x: 1251.25
         y: 380
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -398,7 +398,7 @@ workflow:
             \n5. **整体结构**\n   - 开头：一句话总结（这只股票现在怎么样）\n   - 中间：3-5个要点，每个要点用emoji标注\n\
             \   - 结尾：明确的操作建议（买/卖/观望）\n\n请确保：\n- 避免使用任何专业术语，如果必须使用，要立即解释\n- 每段不超过3句话\n\
             - 多用emoji让内容更生动\n- 语气要亲切友好，像朋友聊天一样"
-        selected: true
+        selected: false
         structured_output_enabled: false
         title: 小白版解读
         type: llm
@@ -408,12 +408,12 @@ workflow:
       height: 116
       id: simplify_llm
       position:
-        x: 1551.25
+        x: 1554.979261870353
         y: 380
       positionAbsolute:
-        x: 1551.25
+        x: 1554.979261870353
         y: 380
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -462,7 +462,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: -506
-      y: 30
-      zoom: 0.8
+      x: -512.2125141884708
+      y: 24.783856354058912
+      zoom: 0.8044487365850244
   rag_pipeline_variables: []
