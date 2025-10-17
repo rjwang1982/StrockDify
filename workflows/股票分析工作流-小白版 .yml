@@ -345,13 +345,14 @@ workflow:
         prompt_template:
         - id: system-prompt
           role: system
-          text: "你是一位专业的股票投资分析师，擅长技术分析和风险评估。\n\n首先输出该股票的名称，以及最新的与其相关新闻，然后：\n\n请基于以下数据为股票\
-            \ {{#parse_response.stock_code#}} 提供专业的投资分析：\n\n## \n\n## 技术指标概要\n{{#parse_response.technical_summary#}}\n\
-            \n## 分析报告\n{{#parse_response.report#}}\n\n## 近期交易数据\n{{#parse_response.recent_data#}}\n\
-            \n请提供以下分析：\n\n1. **趋势分析**\n   - 当前趋势方向\n   - 关键支撑位和压力位\n   - 均线系统分析\n\n\
-            2. **技术指标解读**\n   - RSI指标含义\n   - MACD信号分析\n   - 成交量变化解读\n\n3. **风险评估**\n\
-            \   - 波动率分析\n   - 潜在风险点\n   - 风险等级评定\n\n4. **投资建议**\n   - 短期操作策略（1-5天）\n\
-            \   - 中期目标价位（1-3个月）\n   - 建议止损位\n   - 仓位管理建议\n\n5. **综合评分解读**\n   - 当前评分：{{#parse_response.score#}}分\n\
+          text: "你是一位专业的股票投资分析师，擅长技术分析和风险评估。\n\n首先输出该股票的名称，再去互联网上搜取最新的与其相关新闻，然后：\n\
+            \n请基于以下数据为股票 {{#parse_response.stock_code#}} 提供专业的投资分析：\n\n## \n\n## 技术指标概要\n\
+            {{#parse_response.technical_summary#}}\n\n## 分析报告\n{{#parse_response.report#}}\n\
+            \n## 近期交易数据\n{{#parse_response.recent_data#}}\n\n请提供以下分析：\n\n1. **趋势分析**\n\
+            \   - 当前趋势方向\n   - 关键支撑位和压力位\n   - 均线系统分析\n\n2. **技术指标解读**\n   - RSI指标含义\n\
+            \   - MACD信号分析\n   - 成交量变化解读\n\n3. **风险评估**\n   - 波动率分析\n   - 潜在风险点\n\
+            \   - 风险等级评定\n\n4. **投资建议**\n   - 短期操作策略（1-5天）\n   - 中期目标价位（1-3个月）\n \
+            \  - 建议止损位\n   - 仓位管理建议\n\n5. **综合评分解读**\n   - 当前评分：{{#parse_response.score#}}分\n\
             \   - 系统建议：{{#parse_response.recommendation#}}\n   - 评分依据说明\n\n请用专业但易懂的语言，给出具体可操作的建议。"
         selected: true
         structured_output_enabled: false
@@ -462,7 +463,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: -512.2125141884708
-      y: 24.783856354058912
+      x: -512.2125141884709
+      y: 23.783856354058912
       zoom: 0.8044487365850244
   rag_pipeline_variables: []
