@@ -14,4 +14,4 @@ akshare==1.12.60
 requests==2.31.0
 
 # 其他依赖
-python-multipart==0.0.6
+python-multipart==0.0.18
