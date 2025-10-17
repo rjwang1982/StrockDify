@@ -13,21 +13,23 @@
 StrockDify 是一个完整的股票技术分析解决方案，包含以下核心组件：
 
 ### 后端服务
-- **FastAPI 后端服务** (`strock.py`)：提供股票数据获取、技术指标计算和评分系统
-- **Python 测试客户端** (`test_client.py`)：用于快速测试 API 接口
-- **启动脚本** (`start_server.sh`)：一键启动服务器
+- **FastAPI 后端服务** (`src/strock.py`)：提供股票数据获取、技术指标计算和评分系统
+- **Python 测试客户端** (`src/test_client.py`)：用于快速测试 API 接口
+- **启动脚本** (`scripts/start_server.sh`)：一键启动服务器
 - **依赖管理** (`requirements.txt`)：Python 依赖包清单
 
 ### Dify 工作流配置
-- **对话式工作流** (`strock_chatflow.yml`)：支持连续对话的股票分析
-- **标准工作流** (`股票分析工作流.yml`)：单次执行的专业分析
-- **小白版工作流** (`股票分析工作流-小白版.yml`)：专业版 + 通俗版双层解读
+- **对话式工作流** (`workflows/strock_chatflow.yml`)：支持连续对话的股票分析
+- **标准工作流** (`workflows/股票分析工作流.yml`)：单次执行的专业分析
+- **小白版工作流** (`workflows/股票分析工作流-小白版.yml`)：专业版 + 通俗版双层解读
 
 ### 文档
 - **主文档** (`README.md`)：完整的项目说明和使用指南
-- **部署指南** ([README-部署指南.md](README-部署指南.md))：详细的部署和配置说明
-- **小白版说明** ([股票分析工作流-小白版-README.md](股票分析工作流-小白版-README.md))：小白版工作流详细文档
-- **GitHub 上传指南** ([GITHUB_UPLOAD_GUIDE.md](GITHUB_UPLOAD_GUIDE.md))：如何上传和管理 GitHub 仓库
+- **部署指南** ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md))：详细的部署和配置说明
+- **小白版说明** ([docs/BEGINNER_WORKFLOW.md](docs/BEGINNER_WORKFLOW.md))：小白版工作流详细文档
+- **常见问题** ([docs/FAQ.md](docs/FAQ.md))：常见问题解答
+- **贡献指南** ([CONTRIBUTING.md](CONTRIBUTING.md))：如何贡献代码
+- **更新日志** ([CHANGELOG.md](CHANGELOG.md))：版本更新记录
 
 ## 功能特性
 
@@ -120,8 +122,8 @@ python -c "import fastapi, akshare, pandas; print('安装成功！')"
 ### 方法一：使用启动脚本（推荐）⭐
 
 ```bash
-chmod +x start_server.sh  # 首次使用需要添加执行权限
-./start_server.sh
+chmod +x scripts/start_server.sh  # 首次使用需要添加执行权限
+./scripts/start_server.sh
 ```
 
 **启动脚本功能：**
@@ -176,13 +178,13 @@ chmod +x start_server.sh  # 首次使用需要添加执行权限
 
 ```bash
 # 使用虚拟环境中的 Python
-./myenv/bin/python strock.py
+./myenv/bin/python src/strock.py
 
 # 或直接使用系统 Python
-python strock.py
+python src/strock.py
 
 # 或使用 uvicorn
-uvicorn strock:app --host 0.0.0.0 --port 8000
+uvicorn src.strock:app --host 0.0.0.0 --port 8000
 ```
 
 服务器将在 `http://0.0.0.0:8000` 启动，支持本机和局域网访问。
@@ -191,13 +193,13 @@ uvicorn strock:app --host 0.0.0.0 --port 8000
 
 ```bash
 # 后台运行并保存日志
-nohup ./myenv/bin/python strock.py > server.log 2>&1 &
+nohup ./myenv/bin/python src/strock.py > server.log 2>&1 &
 
 # 查看日志
 tail -f server.log
 
 # 停止服务
-pkill -f 'python.*strock.py'
+pkill -f 'python.*src/strock.py'
 ```
 
 ### 🧪 测试接口
@@ -243,7 +245,7 @@ http://127.0.0.1:8000/test-stock/AAPL?token=xue123&market_type=US
 
 **运行测试：**
 ```bash
-./myenv/bin/python test_client.py
+./myenv/bin/python src/test_client.py
 ```
 
 **输出示例：**
@@ -277,7 +279,7 @@ http://127.0.0.1:8000/test-stock/AAPL?token=xue123&market_type=US
 
 **自定义测试：**
 
-编辑 `test_client.py` 添加更多测试：
+编辑 `src/test_client.py` 添加更多测试：
 
 ```python
 # 测试你自己的股票
@@ -935,9 +937,9 @@ http://YOUR_SERVER_IP:8000/analyze-stock/
 
 | 文件名 | 类型 | 说明 |
 |--------|------|------|
-| `strock.py` | Python | FastAPI 主服务文件，包含所有 API 端点和技术指标计算逻辑 |
-| `test_client.py` | Python | 测试客户端，用于快速测试 API 功能，自动禁用代理 |
-| `start_server.sh` | Shell | 服务器启动脚本，自动停止旧进程并启动新服务，显示访问 URL |
+| `src/strock.py` | Python | FastAPI 主服务文件，包含所有 API 端点和技术指标计算逻辑 |
+| `src/test_client.py` | Python | 测试客户端，用于快速测试 API 功能，自动禁用代理 |
+| `scripts/start_server.sh` | Shell | 服务器启动脚本，自动停止旧进程并启动新服务，显示访问 URL |
 | `requirements.txt` | Text | Python 依赖包清单，包含 FastAPI、AkShare 等 |
 
 ### Dify 工作流配置
@@ -1181,7 +1183,7 @@ pip install fastapi uvicorn pandas akshare requests pydantic
 
 ### 添加新的技术指标
 
-在 `strock.py` 中添加计算函数：
+在 `src/strock.py` 中添加计算函数：
 
 ```python
 def calculate_new_indicator(df, period):
