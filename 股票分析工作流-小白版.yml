@@ -1,0 +1,468 @@
+app:
+  description: 基于技术指标的股票分析工作流，支持A股、港股、美股分析，并提供通俗易懂的小白版解读
+  icon: 💡
+  icon_background: '#FF9800'
+  mode: workflow
+  name: 股票分析工作流-小白版
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/moonshot:0.0.8@39b2074f0d4dd3a739eae2e6b8825ee8c7bc0b4ebda817decafe1d368c84fae2
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: API认证密钥
+    id: fe3276d4-c8f7-42f2-b814-43c9f2824ccb
+    name: apikey
+    selector:
+    - env
+    - apikey
+    value: xue123
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: start-source-validate-target
+      source: start
+      sourceHandle: source
+      target: validate
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: validate-false-end-target
+      source: validate
+      sourceHandle: 'false'
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: validate-true-http-target
+      source: validate
+      sourceHandle: 'true'
+      target: http_request
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: http-source-parse-target
+      source: http_request
+      sourceHandle: source
+      target: parse_response
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: parse-source-llm-target
+      source: parse_response
+      sourceHandle: source
+      target: analyze_llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: llm-source-simplify-target
+      source: analyze_llm
+      sourceHandle: source
+      target: simplify_llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: simplify-source-end-target
+      source: simplify_llm
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 输入股票代码和市场类型
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: '002352'
+          label: 股票代码
+          max_length: 10
+          required: true
+          type: text-input
+          variable: stock_code
+        - default: A
+          label: 市场类型
+          max_length: 10
+          options:
+          - A
+          - HK
+          - US
+          - ETF
+          - LOF
+          required: true
+          type: select
+          variable: market_type
+      height: 142
+      id: start
+      position:
+        x: 50
+        y: 300
+      positionAbsolute:
+        x: 50
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: check-stock-code
+            value: ''
+            varType: string
+            variable_selector:
+            - start
+            - stock_code
+          id: 'true'
+          logical_operator: and
+        desc: 验证股票代码是否为空
+        selected: false
+        title: 验证输入
+        type: if-else
+      height: 152
+      id: validate
+      position:
+        x: 350
+        y: 300
+      positionAbsolute:
+        x: 350
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: body-data
+            key: ''
+            type: text
+            value: "{\n  \"stock_code\": \"{{#start.stock_code#}}\",\n  \"market_type\"\
+              : \"{{#start.market_type#}}\"\n}"
+          type: json
+        desc: 调用股票分析API
+        headers: 'Content-Type: application/json
+
+          Authorization: Bearer {{#env.apikey#}}'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 30
+          max_read_timeout: 60
+          max_write_timeout: 30
+        title: 获取股票数据
+        type: http-request
+        url: http://192.168.132.2:8000/analyze-stock/
+        variables: []
+      height: 165
+      id: http_request
+      position:
+        x: 650
+        y: 380
+      positionAbsolute:
+        x: 650
+        y: 380
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\ndef main(response_body: str) -> dict:\n    \"\"\"\n\
+          \    解析API响应数据\n    \"\"\"\n    try:\n        data = json.loads(response_body)\n\
+          \        \n        technical_summary = data.get(\"technical_summary\", {})\n\
+          \        report = data.get(\"report\", {})\n        recent_data = data.get(\"\
+          recent_data\", [])\n        \n        return {\n            \"technical_summary\"\
+          : json.dumps(technical_summary, ensure_ascii=False, indent=2),\n       \
+          \     \"report\": json.dumps(report, ensure_ascii=False, indent=2),\n  \
+          \          \"recent_data\": json.dumps(recent_data[:5], ensure_ascii=False,\
+          \ indent=2),  # 只取最近5天\n            \"stock_code\": report.get(\"stock_code\"\
+          , \"\"),\n            \"price\": str(report.get(\"price\", 0)),\n      \
+          \      \"score\": str(report.get(\"score\", 0)),\n            \"recommendation\"\
+          : report.get(\"recommendation\", \"\")\n        }\n    except Exception\
+          \ as e:\n        return {\n            \"technical_summary\": \"{}\",\n\
+          \            \"report\": \"{}\",\n            \"recent_data\": \"[]\",\n\
+          \            \"stock_code\": \"\",\n            \"price\": \"0\",\n    \
+          \        \"score\": \"0\",\n            \"recommendation\": f\"解析错误: {str(e)}\"\
+          \n        }\n"
+        code_language: python3
+        desc: 解析API返回的JSON数据
+        outputs:
+          price:
+            children: null
+            type: string
+          recent_data:
+            children: null
+            type: string
+          recommendation:
+            children: null
+            type: string
+          report:
+            children: null
+            type: string
+          score:
+            children: null
+            type: string
+          stock_code:
+            children: null
+            type: string
+          technical_summary:
+            children: null
+            type: string
+        selected: false
+        title: 解析响应数据
+        type: code
+        variables:
+        - value_selector:
+          - http_request
+          - body
+          variable: response_body
+      height: 80
+      id: parse_response
+      position:
+        x: 950
+        y: 380
+      positionAbsolute:
+        x: 950
+        y: 380
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 使用LLM生成详细的投资分析报告
+        model:
+          completion_params:
+            max_tokens: 2000
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: system-prompt
+          role: system
+          text: "你是一位专业的股票投资分析师，擅长技术分析和风险评估。\n\n请基于以下数据为股票 {{#parse_response.stock_code#}}\
+            \ 提供专业的投资分析：\n\n## 技术指标概要\n{{#parse_response.technical_summary#}}\n\n\
+            ## 分析报告\n{{#parse_response.report#}}\n\n## 近期交易数据\n{{#parse_response.recent_data#}}\n\
+            \n请提供以下分析：\n\n1. **趋势分析**\n   - 当前趋势方向\n   - 关键支撑位和压力位\n   - 均线系统分析\n\n\
+            2. **技术指标解读**\n   - RSI指标含义\n   - MACD信号分析\n   - 成交量变化解读\n\n3. **风险评估**\n\
+            \   - 波动率分析\n   - 潜在风险点\n   - 风险等级评定\n\n4. **投资建议**\n   - 短期操作策略（1-5天）\n\
+            \   - 中期目标价位（1-3个月）\n   - 建议止损位\n   - 仓位管理建议\n\n5. **综合评分解读**\n   - 当前评分：{{#parse_response.score#}}分\n\
+            \   - 系统建议：{{#parse_response.recommendation#}}\n   - 评分依据说明\n\n请用专业但易懂的语言，给出具体可操作的建议。"
+        selected: false
+        structured_output_enabled: false
+        title: AI投资分析
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 116
+      id: analyze_llm
+      position:
+        x: 1251.25
+        y: 380
+      positionAbsolute:
+        x: 1251.25
+        y: 380
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 将专业分析转换为小白易懂的语言
+        model:
+          completion_params:
+            max_tokens: 2000
+            temperature: 0.7
+          mode: chat
+          name: kimi-k2-turbo-preview
+          provider: langgenius/moonshot/moonshot
+        prompt_template:
+        - id: system-prompt
+          role: system
+          text: "你是一位擅长用通俗易懂语言解释复杂金融概念的投资顾问。\n\n请将以下专业的股票分析报告转换为小白投资者能够轻松理解的语言：\n\n\
+            {{#analyze_llm.text#}}\n\n转换要求：\n\n1. **用生活化的比喻**\n   - 将技术指标比作日常生活中的事物\n\
+            \   - 例如：RSI超买就像\"商品太火爆，可能要降价了\"\n   - 例如：MACD金叉就像\"两条线交叉，发出买入信号\"\n\n\
+            2. **简化专业术语**\n   - 支撑位 → 价格的\"安全垫\"\n   - 压力位 → 价格的\"天花板\"\n   - 均线 →\
+            \ 价格的\"平均水平线\"\n   - 成交量 → \"买卖的热闹程度\"\n\n3. **给出具体建议**\n   - 不要说\"建议关注\"\
+            ，而是说\"现在可以考虑...\"\n   - 用\"如果...那么...\"的句式\n   - 给出明确的价格区间和操作时机\n\n4.\
+            \ **风险提示要清晰**\n   - 用红绿灯比喻：绿灯（低风险）、黄灯（中等风险）、红灯（高风险）\n   - 说明最坏情况下可能损失多少\n\
+            \n5. **整体结构**\n   - 开头：一句话总结（这只股票现在怎么样）\n   - 中间：3-5个要点，每个要点用emoji标注\n\
+            \   - 结尾：明确的操作建议（买/卖/观望）\n\n请确保：\n- 避免使用任何专业术语，如果必须使用，要立即解释\n- 每段不超过3句话\n\
+            - 多用emoji让内容更生动\n- 语气要亲切友好，像朋友聊天一样"
+        selected: true
+        structured_output_enabled: false
+        title: 小白版解读
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 116
+      id: simplify_llm
+      position:
+        x: 1551.25
+        y: 380
+      positionAbsolute:
+        x: 1551.25
+        y: 380
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: 输出分析结果
+        outputs:
+        - value_selector:
+          - parse_response
+          - stock_code
+          variable: stock_code
+        - value_selector:
+          - parse_response
+          - price
+          variable: current_price
+        - value_selector:
+          - parse_response
+          - score
+          variable: score
+        - value_selector:
+          - parse_response
+          - recommendation
+          variable: recommendation
+        - value_selector:
+          - analyze_llm
+          - text
+          variable: professional_report
+        - value_selector:
+          - simplify_llm
+          - text
+          variable: simplified_report
+        selected: false
+        title: 结束
+        type: end
+      height: 246
+      id: end
+      position:
+        x: 1850
+        y: 300
+      positionAbsolute:
+        x: 1850
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -506
+      y: 30
+      zoom: 0.8
+  rag_pipeline_variables: []

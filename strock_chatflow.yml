@@ -1,0 +1,513 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 股票
+  use_icon_as_answer_icon: true
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.54@a719a5a226596151af6ff33fa710a74476faa6e1afde9e4a201ff8a7803857ff
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: fe3276d4-c8f7-42f2-b814-43c9f2824ccb
+    name: apikey
+    selector:
+    - env
+    - apikey
+    value: xue123
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1749096966415-source-1749103501104-target
+      source: '1749096966415'
+      sourceHandle: source
+      target: '1749103501104'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1749103501104-source-1749103544329-target
+      source: '1749103501104'
+      sourceHandle: source
+      target: '1749103544329'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1749103544329-true-1749103593419-target
+      source: '1749103544329'
+      sourceHandle: 'true'
+      target: '1749103593419'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1749103593419-source-answer-target
+      source: '1749103593419'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1749094213229-source-1749104402649-target
+      source: '1749094213229'
+      sourceHandle: source
+      target: '1749104402649'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1749104402649-false-1749104440737-target
+      source: '1749104402649'
+      sourceHandle: 'false'
+      target: '1749104440737'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 1749104402649-true-1749104464354-target
+      source: '1749104402649'
+      sourceHandle: 'true'
+      target: '1749104464354'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: http-request
+      id: 1749104464354-source-1749096966415-target
+      source: '1749104464354'
+      sourceHandle: source
+      target: '1749096966415'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: true
+        title: 开始
+        type: start
+        variables:
+        - default: '300274'
+          label: 请输入股票代码
+          max_length: 48
+          options:
+          - '000546'
+          - 000548
+          - 000894
+          - '002235'
+          - ''
+          required: false
+          type: text-input
+          variable: stockcode1
+        - default: A
+          label: 市场类型
+          max_length: 48
+          options:
+          - A
+          - HK
+          - US
+          required: true
+          type: select
+          variable: markeType
+      height: 114
+      id: '1749094213229'
+      position:
+        x: 30
+        y: 275.5
+      positionAbsolute:
+        x: 30
+        y: 275.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1749104464354.output#}}
+
+          {{#1749103593419.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 121
+      id: answer
+      position:
+        x: 2151
+        y: 430
+      positionAbsolute:
+        x: 2151
+        y: 430
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-187
+            key: ''
+            type: text
+            value: "{\n    \"stock_code\": \"{{#1749104464354.output#}}\",\n    \"\
+              market_type\": \"{{#1749094213229.markeType#}}\"\n}"
+          type: json
+        desc: ''
+        headers: 'Content-Type:application/json
+
+          Authorization:bearer {{#env.apikey#}}'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: http://192.168.132.2:8000/analyze-stock/
+        variables: []
+      height: 137
+      id: '1749096966415'
+      position:
+        x: 939
+        y: 430
+      positionAbsolute:
+        x: 939
+        y: 430
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nimport json\ndef main(arg1: str) -> str:\n    print(arg1)\n    data\
+          \ = json.loads(arg1)\n    technical_summary = data[\"technical_summary\"\
+          ]\n    recent_data = data['recent_data']\n    report = data['report']\n\
+          \    return {\n        \"technical_summary\": json.dumps(technical_summary,\
+          \ ensure_ascii=False, indent=2),\n        \"recent_data\": json.dumps(recent_data,\
+          \ ensure_ascii=False, indent=2),\n        \"report\": json.dumps(report,\
+          \ ensure_ascii=False, indent=2),\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          recent_data:
+            children: null
+            type: string
+          report:
+            children: null
+            type: string
+          technical_summary:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1749096966415'
+          - body
+          variable: arg1
+      height: 52
+      id: '1749103501104'
+      position:
+        x: 1242
+        y: 430
+      positionAbsolute:
+        x: 1242
+        y: 430
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 8c4ce480-21d6-491f-9e6e-072843b5a2ad
+            value: A
+            varType: string
+            variable_selector:
+            - '1749094213229'
+            - markeType
+          id: 'true'
+          logical_operator: and
+        - case_id: 69f0b2ce-083c-4cf7-b7a2-d22f789654d5
+          conditions:
+          - comparison_operator: contains
+            id: d5cfa0d8-fab9-4e1b-bcb8-09512fe2c489
+            value: US
+            varType: string
+            variable_selector:
+            - '1749094213229'
+            - markeType
+          id: 69f0b2ce-083c-4cf7-b7a2-d22f789654d5
+          logical_operator: and
+        - case_id: 5fbc017f-9811-49bf-89d3-6ee72d854a70
+          conditions:
+          - comparison_operator: contains
+            id: 376c67f7-25f9-4414-908e-831dcf84de8c
+            value: HK
+            varType: string
+            variable_selector:
+            - '1749094213229'
+            - markeType
+          id: 5fbc017f-9811-49bf-89d3-6ee72d854a70
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 220
+      id: '1749103544329'
+      position:
+        x: 1545
+        y: 430
+      positionAbsolute:
+        x: 1545
+        y: 430
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3-235b-a22b
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: bbeef1b8-6e5e-40a0-80db-19bfd59ff6d6
+          role: system
+          text: '分析A股{{#1749094213229.stockcode1#}}:
+
+            技术指标概要:
+
+            {{#1749103501104.technical_summary#}}
+
+            近14日交易数据:
+
+            {{#1749103501104.recent_data#}}
+
+            请提供:
+
+            1.趋势分析(包括支撑位和压力位)
+
+            2. 成交量分析及其含义
+
+            3.风险评估(包含波动率分析)
+
+            4.短期和中期目标价位
+
+            5.关键技术位分析
+
+            6.具体交易建议(包含止损位)
+
+            7.根据{{#1749103501104.report#}}实时技术指标分析给出当前交易策略 '
+        selected: false
+        structured_output_enabled: true
+        title: A股投资大师
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1749103593419'
+      position:
+        x: 1848
+        y: 430
+      positionAbsolute:
+        x: 1848
+        y: 430
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 5c38c6ba-04cf-43fa-9a9d-b836713e4420
+            value: ''
+            varType: string
+            variable_selector:
+            - '1749094213229'
+            - stockcode1
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 判断是否输入股票代码
+        type: if-else
+      height: 124
+      id: '1749104402649'
+      position:
+        x: 333
+        y: 275.5
+      positionAbsolute:
+        x: 333
+        y: 275.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 股票代码不能为空
+        desc: ''
+        selected: false
+        title: 输入错误
+        type: answer
+        variables: []
+      height: 100
+      id: '1749104440737'
+      position:
+        x: 636
+        y: 289
+      positionAbsolute:
+        x: 636
+        y: 289
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        advanced_settings:
+          group_enabled: false
+          groups:
+          - groupId: 9d48b0df-4ecb-4492-9479-d19a45aa0f55
+            group_name: Group1
+            output_type: string
+            variables:
+            - - '1749094213229'
+              - stockcode1
+            - - '1749094213229'
+              - stockcode2
+        desc: ''
+        output_type: string
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1749094213229'
+          - stockcode1
+      height: 109
+      id: '1749104464354'
+      position:
+        x: 636
+        y: 430
+      positionAbsolute:
+        x: 636
+        y: 430
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 111.99999999999977
+      y: 27.000000000000057
+      zoom: 0.7
+  rag_pipeline_variables: []
