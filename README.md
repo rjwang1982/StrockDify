@@ -1,5 +1,11 @@
 # 股票技术分析 API (StrockDify)
 
+![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Stars](https://img.shields.io/github/stars/rjwang1982/StrockDify)
+![Forks](https://img.shields.io/github/forks/rjwang1982/StrockDify)
+
 基于 FastAPI 的专业股票技术分析服务，支持 A股、港股、美股、ETF 和 LOF 基金的多维度技术指标分析和智能投资建议。本项目提供 RESTful API 接口，并集成 Dify 工作流，可实现 AI 驱动的智能投资分析，包括专业版和小白版双层解读。
 
 ## 📋 项目概述
@@ -19,8 +25,9 @@ StrockDify 是一个完整的股票技术分析解决方案，包含以下核心
 
 ### 文档
 - **主文档** (`README.md`)：完整的项目说明和使用指南
-- **部署指南** (`README-部署指南.md`)：详细的部署和配置说明
-- **小白版说明** (`股票分析工作流-小白版-README.md`)：小白版工作流详细文档
+- **部署指南** ([README-部署指南.md](README-部署指南.md))：详细的部署和配置说明
+- **小白版说明** ([股票分析工作流-小白版-README.md](股票分析工作流-小白版-README.md))：小白版工作流详细文档
+- **GitHub 上传指南** ([GITHUB_UPLOAD_GUIDE.md](GITHUB_UPLOAD_GUIDE.md))：如何上传和管理 GitHub 仓库
 
 ## 功能特性
 
@@ -67,7 +74,7 @@ StrockDify 是一个完整的股票技术分析解决方案，包含以下核心
 1. **克隆项目**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/rjwang1982/StrockDify.git
 cd StrockDify
 ```
 
