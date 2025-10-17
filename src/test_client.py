@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+股票分析 API 测试客户端
+
+Author: RJ.Wang
+Email: wangrenjun@gmail.com
+GitHub: https://github.com/rjwang1982/StrockDify
+License: MIT
+"""
+
 import requests
 import json
 import os

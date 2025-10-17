@@ -8,6 +8,15 @@
 
 基于 FastAPI 的专业股票技术分析服务，支持 A股、港股、美股、ETF 和 LOF 基金的多维度技术指标分析和智能投资建议。本项目提供 RESTful API 接口，并集成 Dify 工作流，可实现 AI 驱动的智能投资分析，包括专业版和小白版双层解读。
 
+---
+
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify  
+**License:** MIT
+
+---
+
 ## 📋 项目概述
 
 StrockDify 是一个完整的股票技术分析解决方案，包含以下核心组件：
@@ -1257,6 +1266,22 @@ elif market_type == 'NEW_MARKET':
 - 智能评分系统
 - Dify 工作流集成
 - 完整的 API 文档
+
+---
+
+## 👤 作者信息
+
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** [@rjwang1982](https://github.com/rjwang1982)  
+**Project:** [StrockDify](https://github.com/rjwang1982/StrockDify)
+
+### 联系方式
+
+- 📧 Email: wangrenjun@gmail.com
+- 🐙 GitHub: https://github.com/rjwang1982
+- 💬 Issues: https://github.com/rjwang1982/StrockDify/issues
+- 🌟 Star this project: https://github.com/rjwang1982/StrockDify
 
 ---
 

@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+股票技术分析 API 主服务
+
+Author: RJ.Wang
+Email: wangrenjun@gmail.com
+GitHub: https://github.com/rjwang1982/StrockDify
+License: MIT
+"""
+
 from fastapi import FastAPI, HTTPException, Depends, Header, Request
 from pydantic import BaseModel
 from datetime import datetime, timedelta

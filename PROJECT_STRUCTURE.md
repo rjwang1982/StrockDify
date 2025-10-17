@@ -1,5 +1,12 @@
 # 项目结构说明
 
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify  
+**License:** MIT
+
+---
+
 ## 📁 目录结构
 
 ```

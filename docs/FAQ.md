@@ -1,5 +1,11 @@
 # 常见问题 (FAQ)
 
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify
+
+---
+
 ## 📋 目录
 
 - [安装和配置](#安装和配置)

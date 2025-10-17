@@ -1,0 +1,52 @@
+# Authors
+
+This file lists the contributors to the StrockDify project.
+
+## Project Creator and Maintainer
+
+**RJ.Wang**
+- Email: wangrenjun@gmail.com
+- GitHub: [@rjwang1982](https://github.com/rjwang1982)
+- Role: Project Creator, Lead Developer
+- Contributions:
+  - Initial project architecture and design
+  - FastAPI backend implementation
+  - Technical indicators calculation system
+  - Dify workflow integration
+  - Documentation and project management
+
+---
+
+## Contributors
+
+We welcome contributions from the community! If you've contributed to this project, please add your name here.
+
+To contribute, please see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## Acknowledgments
+
+Special thanks to:
+- **AkShare** - For providing stock data API
+- **FastAPI** - For the excellent web framework
+- **Dify** - For AI workflow platform
+- **Open Source Community** - For inspiration and support
+
+---
+
+## How to Contribute
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+---
+
+**Project:** StrockDify  
+**License:** MIT  
+**Repository:** https://github.com/rjwang1982/StrockDify

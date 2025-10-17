@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# 股票分析 API 服务器启动脚本
+#
+# Author: RJ.Wang
+# Email: wangrenjun@gmail.com
+# GitHub: https://github.com/rjwang1982/StrockDify
+# License: MIT
+#
 
 echo "停止旧服务器..."
 pkill -f "python.*strock.py" 2>/dev/null || true

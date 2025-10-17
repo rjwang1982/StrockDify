@@ -1,5 +1,11 @@
 # 股票分析工作流-小白版 使用说明
 
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify
+
+---
+
 ## 📋 概述
 
 这是一个基于 Dify 平台的智能股票分析工作流，专为投资小白设计。它不仅提供专业的技术分析报告，还会将复杂的金融术语转换为通俗易懂的语言，让零基础的投资者也能看懂股票分析。

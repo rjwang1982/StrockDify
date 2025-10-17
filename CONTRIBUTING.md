@@ -2,6 +2,14 @@
 
 感谢你考虑为 StrockDify 做出贡献！🎉
 
+---
+
+**Project Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify
+
+---
+
 ## 📋 目录
 
 - [行为准则](#行为准则)

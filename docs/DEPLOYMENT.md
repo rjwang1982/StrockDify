@@ -1,5 +1,11 @@
 # 股票分析 API 部署指南
 
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify
+
+---
+
 ## 📦 环境要求
 
 - Python 3.8+

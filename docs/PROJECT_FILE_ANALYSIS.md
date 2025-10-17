@@ -1,5 +1,11 @@
 # 项目文件分析报告
 
+**Author:** RJ.Wang  
+**Email:** wangrenjun@gmail.com  
+**GitHub:** https://github.com/rjwang1982/StrockDify
+
+---
+
 ## 📊 文件清单（共 14 个文件）
 
 ### ✅ 核心必要文件（8 个）
