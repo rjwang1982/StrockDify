@@ -1,4 +1,4 @@
-# 股票技术分析 API (StrockDify)
+# 股票技术分析 API (StockDify)
 
 ![项目演示](difystock.gif)
 
