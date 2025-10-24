@@ -1276,7 +1276,7 @@ elif market_type == 'NEW_MARKET':
 **Author:** RJ.Wang  
 **Email:** wangrenjun@gmail.com  
 **GitHub:** [@rjwang1982](https://github.com/rjwang1982)  
-**Project:** [StrockDify](https://github.com/rjwang1982/StrockDify)
+**Project:** [StockDify](https://github.com/rjwang1982/StrockDify)
 
 ### 联系方式
 
@@ -1287,4 +1287,4 @@ elif market_type == 'NEW_MARKET':
 
 ---
 
-**感谢使用 StrockDify！祝投资顺利！** 📈
+**感谢使用 StockDify！祝投资顺利！** 📈
