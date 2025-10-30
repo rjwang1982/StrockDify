@@ -1,5 +1,7 @@
 # StockDify - 股票技术分析 API
 
+![项目演示](difystock.gif)
+
 ![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
