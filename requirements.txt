@@ -10,13 +10,8 @@ numpy>=1.26.4
 # 股票数据获取
 akshare>=1.14.0
 
-# HTTP 请求（akshare 依赖）
+# HTTP 请求
 requests>=2.32.0
 
 # 其他依赖
 python-multipart>=0.0.12
-
-# AWS 和数据库
-boto3>=1.34.0
-pymysql>=1.1.0
-sqlalchemy>=2.0.0

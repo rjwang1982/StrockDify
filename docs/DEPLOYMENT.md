@@ -1,72 +1,87 @@
-# 股票分析 API 部署指南
+# 部署指南
 
-**Author:** RJ.Wang  
-**Email:** wangrenjun@gmail.com  
-**GitHub:** https://github.com/rjwang1982/StrockDify
+**Author:** RJ.Wang | **Email:** wangrenjun@gmail.com | **GitHub:** https://github.com/rjwang1982/StrockDify
 
 ---
 
-## 📦 环境要求
+## 环境要求
 
 - Python 3.8+
-- pip 或 conda
+- pip
 
 ---
 
-## 🚀 快速开始
+## 快速部署
 
-### 1. 安装依赖
+### 1. 克隆项目
+
+```bash
+git clone https://github.com/rjwang1982/StrockDify.git
+cd StrockDify
+```
+
+### 2. 创建虚拟环境
+
+```bash
+python -m venv myenv
+source myenv/bin/activate  # macOS/Linux
+# myenv\Scripts\activate  # Windows
+```
+
+### 3. 安装依赖
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. 启动服务
+### 4. 启动服务
 
 ```bash
-python strock.py
-```
+# 使用启动脚本（推荐）
+./scripts/start_server.sh
 
-服务将在 `http://0.0.0.0:8000` 启动
+# 或手动启动
+python src/stock.py
+```
 
 ---
 
-## 📚 依赖说明
+## 依赖说明
 
 | 库 | 版本 | 用途 |
 |---|---|---|
-| **fastapi** | 0.104.1 | Web 框架，提供 RESTful API |
-| **uvicorn** | 0.24.0 | ASGI 服务器，运行 FastAPI 应用 |
-| **pydantic** | 2.5.0 | 数据验证和序列化 |
-| **pandas** | 2.1.3 | 数据处理和分析 |
-| **numpy** | 1.26.2 | 数值计算（pandas 依赖） |
-| **akshare** | 1.12.60 | 股票数据获取（核心库） |
-| **requests** | 2.31.0 | HTTP 请求（akshare 依赖） |
-| **python-multipart** | 0.0.6 | 处理表单数据 |
+| fastapi | 0.115+ | Web 框架 |
+| uvicorn | 0.32+ | ASGI 服务器 |
+| pydantic | 2.10+ | 数据验证 |
+| pandas | 2.2+ | 数据处理 |
+| numpy | 1.26+ | 数值计算 |
+| akshare | 1.14+ | 股票数据获取 |
+| requests | 2.32+ | HTTP 请求 |
+| python-multipart | 0.0.12+ | 表单处理 |
 
 ---
 
-## 🔧 配置说明
+## 配置说明
 
 ### 修改端口
 
-编辑 `strock.py` 最后一行：
+编辑 `src/stock.py` 最后一行：
 
 ```python
-uvicorn.run(app, host="0.0.0.0", port=8000)  # 修改 port 参数
+uvicorn.run(app, host="0.0.0.0", port=8000)  # 修改 port
 ```
 
-### 修改认证 Token
+### 修改 Token
 
-编辑 `strock.py` 第 102 行：
+编辑 `src/stock.py`：
 
 ```python
-valid_tokens = ["xue123", "xue1234", "your_token"]  # 添加你的 token
+valid_tokens = ["xue123", "xue1234", "your_token"]
 ```
 
 ---
 
-## 🧪 测试 API
+## 测试
 
 ### 健康检查
 
@@ -74,46 +89,38 @@ valid_tokens = ["xue123", "xue1234", "your_token"]  # 添加你的 token
 curl http://localhost:8000/health
 ```
 
-### 浏览器测试（GET）
+### 浏览器测试
 
 ```
-http://localhost:8000/test-stock/002352?token=xue123
+http://localhost:8000/test-stock/600519?token=xue123
 ```
 
-### API 调用（POST）
+### API 调用
 
 ```bash
 curl -X POST http://localhost:8000/analyze-stock/ \
-  -H "Content-Type: application/json" \
   -H "Authorization: Bearer xue123" \
-  -d '{
-    "stock_code": "002352",
-    "market_type": "A"
-  }'
+  -H "Content-Type: application/json" \
+  -d '{"stock_code": "600519", "market_type": "A"}'
 ```
 
 ---
 
-## 🐳 Docker 部署（可选）
+## Docker 部署
 
-### 创建 Dockerfile
+### Dockerfile
 
 ```dockerfile
 FROM python:3.10-slim
-
 WORKDIR /app
-
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-COPY strock.py .
-
+COPY src/ ./src/
 EXPOSE 8000
-
-CMD ["python", "strock.py"]
+CMD ["python", "src/stock.py"]
 ```
 
-### 构建和运行
+### 构建运行
 
 ```bash
 docker build -t stock-api .
@@ -122,94 +129,82 @@ docker run -p 8000:8000 stock-api
 
 ---
 
-## 🌐 局域网访问
+## 局域网访问
 
-服务默认监听 `0.0.0.0`，可通过局域网 IP 访问：
+服务默认绑定 `0.0.0.0:8000`，支持局域网访问。
 
+**查看本机 IP：**
+```bash
+ifconfig | grep inet  # macOS/Linux
+ipconfig              # Windows
 ```
-http://192.168.x.x:8000
-```
 
-查看本机 IP：
-- macOS/Linux: `ifconfig | grep inet`
-- Windows: `ipconfig`
+**访问示例：**
+```
+http://192.168.x.x:8000/test-stock/600519?token=xue123
+```
 
 ---
 
-## ⚠️ 常见问题
+## 常见问题
 
-### 1. akshare 安装失败
+### akshare 安装失败
 
 ```bash
-# 使用国内镜像
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple akshare
 ```
 
-### 2. 端口被占用
+### 端口被占用
 
 ```bash
-# 查看占用端口的进程
 lsof -i :8000
-
-# 杀死进程
 kill -9 <PID>
 ```
 
-### 3. 数据获取失败
+### 数据获取失败
 
 - 检查网络连接
-- 确认股票代码格式正确
-- 查看 akshare 是否需要更新：`pip install --upgrade akshare`
+- 确认股票代码格式
+- 更新 akshare：`pip install --upgrade akshare`
 
 ---
 
-## 📝 版本更新
+## 生产环境
 
-### 更新所有依赖
+### 使用环境变量
 
-```bash
-pip install --upgrade -r requirements.txt
+```python
+import os
+valid_tokens = os.getenv("API_TOKENS", "").split(",")
 ```
 
-### 更新 akshare
+### 启用 HTTPS
 
 ```bash
+uvicorn src.stock:app --ssl-keyfile key.pem --ssl-certfile cert.pem
+```
+
+### 进程管理
+
+```bash
+pip install supervisor
+```
+
+### 日志记录
+
+```python
+import logging
+logging.basicConfig(level=logging.INFO)
+```
+
+---
+
+## 更新
+
+```bash
+# 更新所有依赖
+pip install --upgrade -r requirements.txt
+
+# 更新 akshare
 pip install --upgrade akshare
 ```
-
----
-
-## 🔒 生产环境建议
-
-1. **使用环境变量管理 Token**
-   ```python
-   import os
-   valid_tokens = os.getenv("API_TOKENS", "").split(",")
-   ```
-
-2. **启用 HTTPS**
-   ```bash
-   uvicorn strock:app --host 0.0.0.0 --port 8000 --ssl-keyfile key.pem --ssl-certfile cert.pem
-   ```
-
-3. **使用进程管理器**
-   ```bash
-   # 使用 supervisor 或 systemd
-   pip install supervisor
-   ```
-
-4. **添加日志记录**
-   ```python
-   import logging
-   logging.basicConfig(level=logging.INFO)
-   ```
-
----
-
-## 📞 技术支持
-
-如遇问题，请检查：
-1. Python 版本是否 >= 3.8
-2. 依赖是否完整安装
-3. 网络连接是否正常
-4. 股票代码格式是否正确
