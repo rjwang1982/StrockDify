@@ -9,11 +9,11 @@
 #
 
 echo "停止旧服务器..."
-pkill -f "python.*strock.py" 2>/dev/null || true
+pkill -f "python.*stock.py" 2>/dev/null || true
 sleep 1
 
 echo "启动服务器..."
-./myenv/bin/python src/strock.py &
+./myenv/bin/python src/stock.py &
 SERVER_PID=$!
 
 echo "服务器PID: $SERVER_PID"

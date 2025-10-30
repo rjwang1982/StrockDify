@@ -15,21 +15,10 @@ from datetime import datetime, timedelta
 import pandas as pd
 import json
 import akshare as ak
-from db_utils import get_db_session
+
 
 app = FastAPI()
 
-# AWS Secrets Manager 配置
-SECRET_NAME = "your-aurora-secret-name"  # 替换为你的 Secret 名称
-AWS_REGION = "us-east-1"  # 替换为你的区域
-
-# 数据库依赖
-def get_db():
-    db = get_db_session(SECRET_NAME, AWS_REGION)
-    try:
-        yield db
-    finally:
-        db.close()
 
 # 添加请求日志中间件
 @app.middleware("http")
